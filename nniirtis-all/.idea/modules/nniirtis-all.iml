@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="4">
+  <component name="JmixProjectModulesStateV2">
+    <option name="hasState" value="true" />
+    <option name="moduleState">
+      <JmixModuleStateV2>
+        <option name="artifactVersion" value="unspecified" />
+        <option name="buildFilePath" value="D:\JMIXProjects\Java\nniirtis\nniirtis-all\build.gradle" />
+        <option name="buildSystemName" value="Gradle" />
+        <option name="compositeProjectRoot" value="true" />
+        <option name="mavenLocalURI" value="file:/$MAVEN_REPOSITORY$/" />
+        <option name="moduleName" value="nniirtis-all" />
+        <option name="rootBuildFilePath" value="D:\JMIXProjects\Java\nniirtis\nniirtis-all\build.gradle" />
+        <option name="rootProjectName" value="nniirtis-all" />
+      </JmixModuleStateV2>
+    </option>
+  </component>
+</module>

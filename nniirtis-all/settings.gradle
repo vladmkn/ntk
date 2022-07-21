@@ -1,0 +1,3 @@
+rootProject.name = 'nniirtis-all'
+
+includeBuild '../ntk'
