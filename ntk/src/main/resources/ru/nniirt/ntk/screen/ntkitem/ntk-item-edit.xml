@@ -5,8 +5,11 @@
     <data>
         <instance id="ntkItemDc"
                   class="ru.nniirt.ntk.entity.NtkItem">
-            <fetchPlan extends="_base"/>
+            <fetchPlan extends="_base">
+                <property name="ntkBOMItems" fetchPlan="_base"/>
+            </fetchPlan>
             <loader/>
+            <collection id="ntkBOMItemsDc" property="ntkBOMItems"/>
         </instance>
     </data>
     <facets>
@@ -39,6 +42,24 @@
                 </column>
             </form>
         </scrollBox>
+        <groupBox id="ntkBOMItemsBox" caption="msg://ru.nniirt.ntk.entity/NtkItem.ntkBOMItems">
+            <table id="ntkBOMItemsTable" dataContainer="ntkBOMItemsDc" width="100%" height="200px">
+                <actions>
+                    <action id="create" type="create"/>
+                    <action id="edit" type="edit"/>
+                    <action id="remove" type="remove"/>
+                </actions>
+                <columns>
+                    <column id="componentCatalogItem"/>
+                    <column id="quantity"/>
+                </columns>
+                <buttonsPanel>
+                    <button action="ntkBOMItemsTable.create"/>
+                    <button action="ntkBOMItemsTable.edit"/>
+                    <button action="ntkBOMItemsTable.remove"/>
+                </buttonsPanel>
+            </table>
+        </groupBox>
         <hbox id="editActions" spacing="true">
             <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
             <button id="closeBtn" action="windowClose"/>

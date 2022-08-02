@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.11.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="ntk">
+        <createTable tableName="NTK_NTK_BOM_ITEM">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_NTK_NTK_BOM_ITEM"/>
+            </column>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COMPONENT_CATALOG_ITEM_ID" type="UUID"/>
+            <column name="QUANTITY" type="DOUBLE"/>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="DATETIME"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="DATETIME"/>
+            <column name="DELETED_BY" type="VARCHAR(255)"/>
+            <column name="DELETED_DATE" type="DATETIME"/>
+            <column name="NTK_ITEM_ID" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="ntk">
+        <createIndex indexName="IDX_NTK_NTK_BOM_ITEM_COMPONENT_CATALOG_ITEM" tableName="NTK_NTK_BOM_ITEM">
+            <column name="COMPONENT_CATALOG_ITEM_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="COMPONENT_CATALOG_ITEM_ID" baseTableName="NTK_NTK_BOM_ITEM"
+                                 constraintName="FK_NTK_NTK_BOM_ITEM_ON_COMPONENT_CATALOG_ITEM"
+                                 referencedColumnNames="ID" referencedTableName="NTK_COMPONENT_CATALOG_ITEM"/>
+    </changeSet>
+    <changeSet id="3" author="ntk">
+        <createIndex indexName="IDX_NTK_NTK_BOM_ITEM_NTK_ITEM" tableName="NTK_NTK_BOM_ITEM">
+            <column name="NTK_ITEM_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="NTK_ITEM_ID" baseTableName="NTK_NTK_BOM_ITEM"
+                                 constraintName="FK_NTK_NTK_BOM_ITEM_ON_NTK_ITEM" referencedColumnNames="ID"
+                                 referencedTableName="NTK_NTK_ITEM"/>
+    </changeSet>
+</databaseChangeLog>

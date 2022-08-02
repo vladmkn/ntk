@@ -1,11 +1,8 @@
 package ru.nniirt.ntk.entity;
 
-import io.jmix.core.DeletePolicy;
 import io.jmix.core.annotation.DeletedBy;
 import io.jmix.core.annotation.DeletedDate;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
-import io.jmix.core.entity.annotation.OnDelete;
-import io.jmix.core.metamodel.annotation.Composition;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -14,56 +11,30 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 @JmixEntity
-@Table(name = "NTK_NTK_ITEM", indexes = {
-        @Index(name = "IDX_NTK_NTK_ITEM_UNIT_OF_MEASURE", columnList = "UNIT_OF_MEASURE_ID")
+@Table(name = "NTK_NTK_BOM_ITEM", indexes = {
+        @Index(name = "IDX_NTK_NTK_BOM_ITEM_COMPONENT_CATALOG_ITEM", columnList = "COMPONENT_CATALOG_ITEM_ID"),
+        @Index(name = "IDX_NTK_NTK_BOM_ITEM_NTK_ITEM", columnList = "NTK_ITEM_ID")
 })
-@Entity(name = "ntk_NtkItem")
-public class NtkItem {
+@Entity(name = "ntk_NtkBOMItem")
+public class NtkBOMItem {
     @JmixGeneratedValue
     @Column(name = "ID", nullable = false)
     @Id
     private UUID id;
 
-    @JoinColumn(name = "UNIT_OF_MEASURE_ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private UnitOfMeasure unitOfMeasure;
-
-    @Column(name = "BLANK")
-    private String blank;
-
-    @Column(name = "BLANK_NAME")
-    private String blankName;
-
-    @Column(name = "WEIGHT")
-    private Double weight;
-
-    @Column(name = "PRODUCT_ID", length = 50)
-    private String productId;
-
-    @Column(name = "QUANTITY")
-    private Double quantity;
-
-    @OnDelete(DeletePolicy.CASCADE)
-    @Composition
-    @OneToMany(mappedBy = "ntkItem")
-    private List<NtkBOMItem> ntkBOMItems;
-
-    @Column(name = "ROUTE", length = 455)
-    private String route;
-
-    @Column(name = "MATERIAL_BLANK_SIZE")
-    private String materialBlankSize;
-
-    @Column(name = "GEOMERTY")
-    private String geomerty;
-
     @Column(name = "VERSION", nullable = false)
     @Version
     private Integer version;
+
+    @JoinColumn(name = "COMPONENT_CATALOG_ITEM_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private ComponentCatalogItem componentCatalogItem;
+
+    @Column(name = "QUANTITY")
+    private Double quantity;
 
     @CreatedBy
     @Column(name = "CREATED_BY")
@@ -92,44 +63,16 @@ public class NtkItem {
     @Temporal(TemporalType.TIMESTAMP)
     private Date deletedDate;
 
-    public List<NtkBOMItem> getNtkBOMItems() {
-        return ntkBOMItems;
+    @JoinColumn(name = "NTK_ITEM_ID", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private NtkItem ntkItem;
+
+    public NtkItem getNtkItem() {
+        return ntkItem;
     }
 
-    public void setNtkBOMItems(List<NtkBOMItem> ntkBOMItems) {
-        this.ntkBOMItems = ntkBOMItems;
-    }
-
-    public UnitOfMeasure getUnitOfMeasure() {
-        return unitOfMeasure;
-    }
-
-    public void setUnitOfMeasure(UnitOfMeasure unitOfMeasure) {
-        this.unitOfMeasure = unitOfMeasure;
-    }
-
-    public String getGeomerty() {
-        return geomerty;
-    }
-
-    public void setGeomerty(String geomerty) {
-        this.geomerty = geomerty;
-    }
-
-    public String getMaterialBlankSize() {
-        return materialBlankSize;
-    }
-
-    public void setMaterialBlankSize(String materialBlankSize) {
-        this.materialBlankSize = materialBlankSize;
-    }
-
-    public String getRoute() {
-        return route;
-    }
-
-    public void setRoute(String route) {
-        this.route = route;
+    public void setNtkItem(NtkItem ntkItem) {
+        this.ntkItem = ntkItem;
     }
 
     public Double getQuantity() {
@@ -140,36 +83,12 @@ public class NtkItem {
         this.quantity = quantity;
     }
 
-    public String getProductId() {
-        return productId;
+    public ComponentCatalogItem getComponentCatalogItem() {
+        return componentCatalogItem;
     }
 
-    public void setProductId(String productId) {
-        this.productId = productId;
-    }
-
-    public Double getWeight() {
-        return weight;
-    }
-
-    public void setWeight(Double weight) {
-        this.weight = weight;
-    }
-
-    public String getBlankName() {
-        return blankName;
-    }
-
-    public void setBlankName(String blankName) {
-        this.blankName = blankName;
-    }
-
-    public String getBlank() {
-        return blank;
-    }
-
-    public void setBlank(String blank) {
-        this.blank = blank;
+    public void setComponentCatalogItem(ComponentCatalogItem componentCatalogItem) {
+        this.componentCatalogItem = componentCatalogItem;
     }
 
     public Date getDeletedDate() {
